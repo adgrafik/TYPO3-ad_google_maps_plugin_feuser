@@ -78,7 +78,7 @@ if ((boolean) $extensionConfiguration['pluginFeuser']['useMapDrawerForFrontendUs
 	t3lib_extMgm::addLLrefForTCAdescr('fe_users', 'EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_tca_csh_layer.xml');
 	t3lib_extMgm::addToAllTCAtypes(
 		'fe_users', 
-		'--div--;LLL:EXT:ad_google_maps/Resources/Private/Language/MapDrawer/locallang.xml:tx_adgooglemaps_mapdrawer.sheetMapDrawer, tx_adgooglemapspluginfeuser_coordinates;;;;1-1-1',
+		'--div--;LLL:EXT:ad_google_maps/Resources/Private/Language/MapDrawer/locallang.xml:tx_adgooglemaps_mapdrawer.sheetMapDrawer, tx_adgooglemapspluginfeuser_coordinates',
 		'',
 		'after:image'
 	);
