@@ -51,7 +51,7 @@ plugin.tx_adgooglemaps {
 					typeField = Tx_AdGoogleMapsPluginFeuser_Marker
 
 					recordTypes {
-						Tx_AdGoogleMapsPluginFeuser_Marker < plugin.tx_adgooglemaps.settings.mapDrawer.tables.tx_adgooglemaps_domain_model_layer.recordTypes.Tx_AdGoogleMaps_MapBuilder_Layer_Marker
+						Tx_AdGoogleMapsPluginFeuser_Marker < plugin.tx_adgooglemaps.settings.mapDrawer.tables.tx_adgooglemaps_domain_model_layer.recordTypes.Tx_AdGoogleMaps_MapManager_Layer_Marker
 						Tx_AdGoogleMapsPluginFeuser_Marker {
 							className = Tx_AdGoogleMaps_MapDrawer_Layer_Marker
 

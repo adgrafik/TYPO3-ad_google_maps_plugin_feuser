@@ -23,17 +23,12 @@
  ***************************************************************/
 
 /**
- * Coordinates provider for addresses.
+ * Coordinates provider for address group.
  *
  * @version $Id:$
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License, version 2
  */
-class Tx_AdGoogleMapsPluginFeuser_MapBuilder_CoordinatesProvider_FrontendUsers extends Tx_AdGoogleMaps_MapBuilder_CoordinatesProvider_AbstractCoordinatesProvider {
-
-	/**
-	 * @var Tx_Extbase_Persistence_ObjectStorage<Tx_AdGoogleMapsPluginFeuser_Domain_Model_FrontendUsers>
-	 */
-	protected $frontendUsers;
+class Tx_AdGoogleMapsPluginFeuser_MapManager_CoordinatesProvider_FrontendUserGroups extends Tx_AdGoogleMapsPluginFeuser_MapManager_CoordinatesProvider_FrontendUsers {
 
 	/**
 	 * Loads the data and the coordinates.
@@ -41,37 +36,27 @@ class Tx_AdGoogleMapsPluginFeuser_MapBuilder_CoordinatesProvider_FrontendUsers e
 	 * @return void
 	 */
 	public function load() {
-		$this->loadFrontendUsers();
-		foreach ($this->frontendUsers as $frontendUser) {
-			if (($coordinate = $frontendUser->getPluginFeuserCoordinates())) {
-				$this->data[] = $frontendUser->_getCleanProperties();
-				$this->coordinates[] = $coordinate;
-			} else {
-				$addressQuery = $frontendUser->getZip() . ' ' . $frontendUser->getCity() . ', ' . $frontendUser->getCountry() . ', ' . $frontendUser->getAddress();
-				if (($coordinate = $this->layerBuilder->getGoogleMapsPlugin()->getCoordinatesByAddress($addressQuery)) !== NULL) {
-					$frontendUser->setPluginFeuserCoordinates($coordinate);
-					$this->data[] = $frontendUser->_getCleanProperties();
-					$this->coordinates[] = $coordinate;
-				}
-			}
-		}
+		parent::load();
 	}
 
 	/**
-	 * Loads this addresses.
+	 * Loads the data and the coordinates.
 	 *
 	 * @return void
 	 */
-	protected function loadFrontendUsers() {
-		// Get addresses of layer if $this->addresses wasn't set by the coordinates provider of address group.
+	public function loadFrontendUsers() {
 		$layer = $this->layerBuilder->getLayer();
+		// Load frontend users of frontend groups and call load of frontend coordinates provider.
+		$frontendUserGroupRepository = t3lib_div::makeInstance('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserGroupRepository');
 
+		// TODO: Waiting for mixins in extbase.
 		$layerRepository = t3lib_div::makeInstance('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_LayerRepository');
 		$query = $layerRepository->createQuery();
 		$result = $query->matching($query->equals('uid', $layer->getUid()))->execute();
-
-		$this->frontendUsers = (count($result) > 0 ? $result[0]->getPluginFeuserFrontendUsers() : array());
+		
+		$this->frontendUsers = (count($result) > 0 ? $frontendUserGroupRepository->getFrontendUsersRecursively($result[0]->getPluginFeuserFrontendUserGroups()) : array());
 	}
+
 }
 
 ?>
