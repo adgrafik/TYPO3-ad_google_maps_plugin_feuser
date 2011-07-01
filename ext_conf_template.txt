@@ -1,6 +1,0 @@
-
-# cat=ad: Google Maps API/basic/100; type=boolean; label=LLL:EXT:ad_google_maps_plugin_feuser/Resources/Private/Language/locallang_extconf.xml:pluginFeuser.useMapDrawerForFrontendUser
-pluginFeuser.useMapDrawerForFrontendUser = 0
-
-# cat=ad: Google Maps API/basic/110; type=string; label=LLL:EXT:ad_google_maps_plugin_feuser/Resources/Private/Language/locallang_extconf.xml:pluginFeuser.addToLayerType
-pluginFeuser.addToLayerType = Tx_AdGoogleMaps_MapManager_Layer_Marker,Tx_AdGoogleMapsPluginPoly_MapManager_Layer_Polyline,Tx_AdGoogleMapsPluginPoly_MapManager_Layer_Polygon
