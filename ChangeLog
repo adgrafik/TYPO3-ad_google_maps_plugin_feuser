@@ -1,3 +1,5 @@
 2011-05-01 Arno Dudek  <webmaster@adgrafik.at>
 
 1.0.0	First release.
+
+1.1.0	[TASK] Changed many t3lib_div::makeInstance to the extbase $this->objectManager->create/get.

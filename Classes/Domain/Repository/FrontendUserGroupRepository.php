@@ -39,7 +39,7 @@ class Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserGroupRepository 
 	 */
 	public function getFrontendUsersRecursively($frontendUserGroups, $level = 0) {
 		// Search frontendUsers.
-		$frontendUserRepository = t3lib_div::makeInstance('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserRepository');
+		$frontendUserRepository = $this->objectManager->get('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserRepository');
 		$query = $frontendUserRepository->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 

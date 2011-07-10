@@ -47,10 +47,10 @@ class Tx_AdGoogleMapsPluginFeuser_MapBuilder_CoordinatesProvider_FrontendUserGro
 	public function loadFrontendUsers() {
 		$layer = $this->layerBuilder->getLayer();
 		// Load frontend users of frontend groups and call load of frontend coordinates provider.
-		$frontendUserGroupRepository = t3lib_div::makeInstance('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserGroupRepository');
+		$frontendUserGroupRepository = $this->objectManager->get('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserGroupRepository');
 
 		// TODO: Waiting for mixins in extbase.
-		$layerRepository = t3lib_div::makeInstance('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_LayerRepository');
+		$layerRepository = $this->objectManager->get('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_LayerRepository');
 		$query = $layerRepository->createQuery();
 		$result = $query->matching($query->equals('uid', $layer->getUid()))->execute();
 		

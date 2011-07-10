@@ -37,7 +37,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'typo3' => '4.5.0-0.0.0',
 			'extbase' => '1.3.0-',
 			'fluid' => '1.3.0-',
-			'ad_google_maps' => '1.1.0-',
+			'ad_google_maps' => '1.2.0-',
 		),
 		'conflicts' => array(
 		),

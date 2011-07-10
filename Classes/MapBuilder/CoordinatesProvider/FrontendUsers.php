@@ -66,7 +66,7 @@ class Tx_AdGoogleMapsPluginFeuser_MapBuilder_CoordinatesProvider_FrontendUsers e
 		// Get addresses of layer if $this->addresses wasn't set by the coordinates provider of address group.
 		$layer = $this->layerBuilder->getLayer();
 
-		$layerRepository = t3lib_div::makeInstance('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_LayerRepository');
+		$layerRepository = $this->objectManager->get('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_LayerRepository');
 		$query = $layerRepository->createQuery();
 		$result = $query->matching($query->equals('uid', $layer->getUid()))->execute();
 
