@@ -6,12 +6,14 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="fe_users.disablePositionFixing">Disable relocation</label>
 			<label index="tx_adgooglemaps_domain_model_layer.coordinatesProvider.feusers">Frontend users</label>
 			<label index="tx_adgooglemaps_domain_model_layer.coordinatesProvider.fegroups">Frontend user groups</label>
 			<label index="tx_adgooglemaps_domain_model_layer.feusers">Frontend users:</label>
 			<label index="tx_adgooglemaps_domain_model_layer.fegroups">Frontend user groups:</label>
 		</languageKey>
 		<languageKey index="de" type="array">
+			<label index="fe_users.disablePositionFixing">Deaktiviere Standortbestimmung</label>
 			<label index="tx_adgooglemaps_domain_model_layer.coordinatesProvider.feusers">Frontend Benutzer</label>
 			<label index="tx_adgooglemaps_domain_model_layer.coordinatesProvider.fegroups">Frontend Benutzergruppen</label>
 			<label index="tx_adgooglemaps_domain_model_layer.feusers">Frontend Benutzer:</label>

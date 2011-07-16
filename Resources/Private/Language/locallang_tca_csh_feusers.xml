@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>CSH</type>
+		<description>CSH labels for FlexForm fields</description>
+		<csh_table>fe_users</csh_table>
+		<fileId>EXT:ad_google_maps_plugin_feuser/Resources/Private/Language/locallang_tca_csh_feusers.xml</fileId>
+		<labelContext type="array"></labelContext>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_adgooglemapspluginfeuser_disable_position_fixing.description">If one of the fields "Address", "ZIP", "City" or "Country" of a FrontEnd user changed, the position will be calculated new. With this option this function will be suppress.</label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="tx_adgooglemapspluginfeuser_disable_position_fixing.description">Wird eines der Felder "Adresse", "PLZ", "Stadt" oder "Land" eines FrontEnd Benutzers geändert, wird die Position automatisch neu berechnet. Mit dieser Option kann dies unterbunden werden.</label>
+		</languageKey>
+	</data>
+</T3locallang>

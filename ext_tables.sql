@@ -34,5 +34,6 @@ CREATE TABLE tx_adgooglemapspluginfeuser_layer_fegroups_mm (
 # Table structure for table 'fe_users'
 #
 CREATE TABLE fe_users (
-	tx_adgooglemapspluginfeuser_coordinates text
+	tx_adgooglemapspluginfeuser_coordinates text,
+	tx_adgooglemapspluginfeuser_disable_position_fixing tinyint(4) unsigned DEFAULT '0' NOT NULL
 );

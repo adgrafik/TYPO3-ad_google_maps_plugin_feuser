@@ -71,14 +71,21 @@ if ((boolean) $extensionConfiguration['pluginFeuser']['useMapDrawerForFrontendUs
 				'userFunc' => 'EXT:ad_google_maps/Classes/MapDrawer/MapDrawerApi.php:tx_AdGoogleMaps_MapDrawer_MapDrawerApi->tx_draw',
 			),
 		),
+		'tx_adgooglemapspluginfeuser_disable_position_fixing' => array(
+			'exclude' => true,
+			'label'   => 'LLL:EXT:ad_google_maps_plugin_feuser/Resources/Private/Language/locallang_tca.xml:fe_users.disablePositionFixing',
+			'config'  => array(
+				'type' => 'check',
+			),
+		),
 	);
 
 	t3lib_div::loadTCA('fe_users');
 	t3lib_extMgm::addTCAcolumns('fe_users', $tempColumns, 1);
-	t3lib_extMgm::addLLrefForTCAdescr('fe_users', 'EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_tca_csh_layer.xml');
+	t3lib_extMgm::addLLrefForTCAdescr('fe_users', 'EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_tca_csh_feusers.xml');
 	t3lib_extMgm::addToAllTCAtypes(
 		'fe_users', 
-		'--div--;LLL:EXT:ad_google_maps/Resources/Private/Language/MapDrawer/locallang.xml:tx_adgooglemaps_mapdrawer.sheetMapDrawer, tx_adgooglemapspluginfeuser_coordinates;;;;1-1-1',
+		'--div--;LLL:EXT:ad_google_maps/Resources/Private/Language/MapDrawer/locallang.xml:tx_adgooglemaps_mapdrawer.sheetMapDrawer, tx_adgooglemapspluginfeuser_coordinates, tx_adgooglemapspluginfeuser_disable_position_fixing',
 		'',
 		'after:image'
 	);
