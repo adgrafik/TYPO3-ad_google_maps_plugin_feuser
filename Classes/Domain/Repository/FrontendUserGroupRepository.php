@@ -39,18 +39,27 @@ class Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserGroupRepository 
 	 */
 	public function getFrontendUsersRecursively($frontendUserGroups, $level = 0) {
 		// Search frontendUsers.
-		$frontendUserRepository = $this->objectManager->get('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserRepository');
+		$extensionConfiguration = Tx_AdGoogleMaps_Utility_BackEnd::getExtensionConfiguration('ad_google_maps_plugin_feuser');
+		$frontendUserRepository = t3lib_div::makeInstance('Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserRepository');
+
 		$query = $frontendUserRepository->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 
 		$frontendUsers = array();
 		foreach ($frontendUserGroups as $frontendUserGroup) {
-			$result = $query->matching(
+
+			$query->matching(
 				$query->logicalOr(
 					$query->contains('usergroup', $frontendUserGroup),
 					$query->equals('usergroup', $frontendUserGroup)
 				)
-			)->execute();
+			);
+
+#			if ($extensionConfiguration['useSorting']) {
+#				$query->setOrderings(array('sorting' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));
+#			}
+
+			$result = $query->execute();
 
 			if (count($result) > 0) {
 				$frontendUsers = array_merge($frontendUsers, $result->toArray());
@@ -61,10 +70,16 @@ class Tx_AdGoogleMapsPluginFeuser_Domain_Repository_FrontendUserGroupRepository 
 		// Search sub groups.
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
-		$frontendUserSubGroups = $query->matching(
+		$query->matching(
 			$query->in('subgroup', $frontendUserGroups)
-#			->setOrderings(array('title' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING))
-		)->execute();
+		);
+
+#		if ($extensionConfiguration['useSorting']) {
+#			$query->setOrderings(array('sorting' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING));
+#		}
+
+		$frontendUserSubGroups = $query->execute();
+
 		if (count($frontendUserSubGroups) > 0 && $level < 99) {
 			$frontendUsers = array_merge($frontendUsers, $this->getFrontendUsersRecursively($frontendUserSubGroups, $level++));
 		}

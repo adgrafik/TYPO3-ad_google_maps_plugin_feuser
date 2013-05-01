@@ -1,6 +1,3 @@
 2011-05-01 Arno Dudek  <webmaster@adgrafik.at>
 
 1.0.0	First release.
-
-1.1.0	[TASK] Changed many t3lib_div::makeInstance to the extbase $this->objectManager->create/get.
-		[FEATURE] Issue #27638 "Option to disable post processing when tt_address record is saved.". New option "Disable relocation" set to coordinates. Thanks to Wolfgang Rotschek.

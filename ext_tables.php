@@ -21,6 +21,19 @@ $tempColumns = array(
 			'minitems' => 0,
 			'maxitems' => 99,
 			'foreign_table' => 'fe_users',
+			'foreign_table_where' => (
+				$extensionConfiguration['recordStorage'] == 'storagePid'
+					? 'AND fe_users.pid = ###STORAGE_PID###'
+					: ($extensionConfiguration['recordStorage'] == 'tsConfigId'
+						? 'AND fe_users.pid = ###PAGE_TSCONFIG_ID###'
+						: ($extensionConfiguration['recordStorage'] == 'tsConfigIdList'
+							? 'AND fe_users.pid IN ( ###PAGE_TSCONFIG_IDLIST### )'
+							: (
+								''
+							)
+						)
+					)
+			),
 			'MM' => 'tx_adgooglemapspluginfeuser_layer_feuser_mm',
 		),
 	),
@@ -36,6 +49,19 @@ $tempColumns = array(
 			'minitems' => 0,
 			'maxitems' => 99,
 			'foreign_table' => 'fe_groups',
+			'foreign_table_where' => (
+				$extensionConfiguration['recordStorage'] == 'storagePid'
+					? 'AND fe_groups.pid = ###STORAGE_PID###'
+					: ($extensionConfiguration['recordStorage'] == 'tsConfigId'
+						? 'AND fe_groups.pid = ###PAGE_TSCONFIG_ID###'
+						: ($extensionConfiguration['recordStorage'] == 'tsConfigIdList'
+							? 'AND fe_groups.pid IN ( ###PAGE_TSCONFIG_IDLIST### )'
+							: (
+								''
+							)
+						)
+					)
+			),
 			'MM' => 'tx_adgooglemapspluginfeuser_layer_fegroups_mm',
 		),
 	),
@@ -59,7 +85,10 @@ t3lib_extMgm::addToAllTCAtypes(
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/', 'ad: Google Maps Plugin Frontend Users Coordinates Provider');
 
 // Add fe_users support.
+t3lib_div::loadTCA('fe_users');
+
 if ((boolean) $extensionConfiguration['pluginFeuser']['useMapDrawerForFrontendUser'] === TRUE) {
+
 	$tempColumns = array(
 		'tx_adgooglemapspluginfeuser_coordinates' => array(
 			'exclude' => true,
@@ -71,26 +100,30 @@ if ((boolean) $extensionConfiguration['pluginFeuser']['useMapDrawerForFrontendUs
 				'userFunc' => 'EXT:ad_google_maps/Classes/MapDrawer/MapDrawerApi.php:tx_AdGoogleMaps_MapDrawer_MapDrawerApi->tx_draw',
 			),
 		),
-		'tx_adgooglemapspluginfeuser_disable_position_fixing' => array(
-			'exclude' => true,
-			'label'   => 'LLL:EXT:ad_google_maps_plugin_feuser/Resources/Private/Language/locallang_tca.xml:fe_users.disablePositionFixing',
-			'config'  => array(
-				'type' => 'check',
-			),
-		),
 	);
 
-	t3lib_div::loadTCA('fe_users');
 	t3lib_extMgm::addTCAcolumns('fe_users', $tempColumns, 1);
-	t3lib_extMgm::addLLrefForTCAdescr('fe_users', 'EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_tca_csh_feusers.xml');
+	t3lib_extMgm::addLLrefForTCAdescr('fe_users', 'EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_tca_csh_layer.xml');
 	t3lib_extMgm::addToAllTCAtypes(
 		'fe_users', 
-		'--div--;LLL:EXT:ad_google_maps/Resources/Private/Language/MapDrawer/locallang.xml:tx_adgooglemaps_mapdrawer.sheetMapDrawer, tx_adgooglemapspluginfeuser_coordinates, tx_adgooglemapspluginfeuser_disable_position_fixing',
+		'--div--;LLL:EXT:ad_google_maps/Resources/Private/Language/MapDrawer/locallang.xml:tx_adgooglemaps_mapdrawer.sheetMapDrawer, tx_adgooglemapspluginfeuser_coordinates;;;;1-1-1',
 		'',
 		'after:image'
 	);
 }
+/*
+if ((boolean) $extensionConfiguration['useSorting'] === TRUE) {
 
+	if (!isset($GLOBALS['TCA']['fe_users']['ctrl']['sortby'])) {
+		$GLOBALS['TCA']['fe_users']['ctrl']['sortby'] = 'sorting';
+	}
+
+	if (!isset($GLOBALS['TCA']['fe_groups']['ctrl']['sortby'])) {
+		t3lib_div::loadTCA('fe_groups');
+		$GLOBALS['TCA']['fe_groups']['ctrl']['sortby'] = 'sorting';
+	}
+}
+*/
 // Set post process function for fe_users on change.
 $TYPO3_CONF_VARS['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['processDatamap_postProcessFieldArray'] = 'EXT:ad_google_maps_plugin_feuser/Classes/Service/FrontendUserPostProcess.php:tx_AdGoogleMapsPluginFeuser_Service_FrontendUserPostProcess';
 

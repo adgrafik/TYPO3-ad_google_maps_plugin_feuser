@@ -41,12 +41,7 @@ class tx_AdGoogleMapsPluginFeuser_Service_FrontendUserPostProcess {
 	 * @return void
 	 */
 	public function processDatamap_postProcessFieldArray($status, $table, $uid, &$fieldArray, $reference) {
-		$disablePositionFixing = (boolean) (array_key_exists('tx_adgooglemapspluginaddress_disable_position_fixing', $fieldArray) 
-			? $fieldArray['tx_adgooglemapspluginfeuser_disable_position_fixing'] 
-			: $reference->checkValue_currentRecord['tx_adgooglemapspluginfeuser_disable_position_fixing']
-		);
-
-			if ($table === 'fe_users' && $disablePositionFixing === FALSE && (
+		if ($table === 'fe_users' && (
 				array_key_exists('zip', $fieldArray) || 
 				array_key_exists('city', $fieldArray) || 
 				array_key_exists('country', $fieldArray) || 
